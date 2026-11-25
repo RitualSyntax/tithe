@@ -20,6 +20,7 @@ function doPost(e) {
     if (d.ping) return out({ ok: true });
     if (d.fetchRecipe) return out(recipePage(d.fetchRecipe));
     if (d.rite) return out(riteSave(d.rite));
+    if (d.riteEvents) return out({ ok: true, events: riteEvents(d.riteEvents) });
     if (!d.to || !d.pdf) return out({ ok: false, error: 'Missing email or PDF' });
 
     const pdf = Utilities.newBlob(Utilities.base64Decode(d.pdf), 'application/pdf', d.filename || 'invoice.pdf');
@@ -67,7 +68,7 @@ function riteSave(r) {
   p.setProperty('rite', JSON.stringify(data));
   if (old.hour !== data.hour) morningTrigger(data.hour);
   const synced = r.calendar ? riteCalendar(data.tasks) : riteCalendar([]);
-  return { ok: true, synced: synced };
+  return { ok: true, synced: synced, events: riteEvents(14) };
 }
 
 // timed tasks -> events in a "Rite" calendar with a popup on the dot
@@ -93,6 +94,23 @@ function riteCalendar(tasks) {
   Object.keys(map).forEach(function (id) { if (!keep[id]) killEvent(cal, map[id].e); });
   p.setProperty('riteEvents', JSON.stringify(keep));
   return Object.keys(keep).length;
+}
+
+// your other calendars, so rite can show them. skips its own + hidden ones
+function riteEvents(days) {
+  days = Math.min(+days || 14, 60);
+  const start = new Date(Utilities.formatDate(new Date(), TZ, "yyyy-MM-dd'T'00:00:00"));
+  const end = new Date(start.getTime() + days * 86400000);
+  const f = function (d) { return Utilities.formatDate(d, TZ, "yyyy-MM-dd'T'HH:mm"); };
+  const out = [];
+  CalendarApp.getAllCalendars().forEach(function (cal) {
+    if (cal.getName() === 'Rite' || cal.isHidden() || !cal.isSelected()) return;
+    cal.getEvents(start, end).forEach(function (ev) {
+      out.push({ id: ev.getId() + '|' + ev.getStartTime().getTime(), t: ev.getTitle() || '(No title)', cal: cal.getName(), col: cal.getColor(),
+        all: ev.isAllDayEvent(), s: f(ev.getStartTime()), e: f(ev.getEndTime()), loc: (ev.getLocation() || '').slice(0, 80) });
+    });
+  });
+  return out.sort(function (a, b) { return a.s.localeCompare(b.s); }).slice(0, 250);
 }
 
 function killEvent(cal, id) {
