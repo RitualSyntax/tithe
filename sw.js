@@ -1,5 +1,5 @@
 // offline cache. bump V when shipping changes
-const V = 'tithe-v2';
+const V = 'tithe-v3';
 const CDN = 'tithe-cdn';
 const SHELL = ['./', 'index.html', 'style.css', 'app.js', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'fonts/redaction50.woff2'];
 
