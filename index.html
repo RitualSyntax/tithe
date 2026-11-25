@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#050101">
+<title>Tithe</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <svg class="sigil" viewBox="0 0 32 32" aria-hidden="true">
+    <circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <path d="M5.5 10 L26.5 10 L16 28 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <line x1="16" y1="2" x2="16" y2="30" stroke="currentColor" stroke-width="1.5"/>
+    <circle cx="16" cy="16" r="1.8" fill="currentColor"/>
+  </svg>
+  <div class="brand">
+    <h1 data-text="Tithe">Tithe</h1>
+    <div class="mono muted">Invoices · Expenses · Tax</div>
+  </div>
+  <button class="icon-btn" data-act="settings" aria-label="Settings" id="gearBtn"></button>
+</header>
+
+<main id="app"></main>
+
+<nav class="tabs" id="tabs"></nav>
+
+<div id="sheet" hidden></div>
+<div id="dialog" hidden></div>
+<div id="viewer" hidden data-act="closeViewer"></div>
+<div id="toast"></div>
+<input type="file" id="receiptPick" accept="image/*" hidden>
+<input type="file" id="backupPick" accept="application/json,.json" hidden>
+
+<script src="app.js"></script>
+</body>
+</html>
