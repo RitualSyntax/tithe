@@ -1,7 +1,7 @@
 // offline cache. bump V when shipping changes
-const V = 'tithe-v1';
+const V = 'tithe-v2';
 const CDN = 'tithe-cdn';
-const SHELL = ['./', 'index.html', 'style.css', 'app.js', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png'];
+const SHELL = ['./', 'index.html', 'style.css', 'app.js', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'fonts/redaction50.woff2'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(V).then(c => c.addAll(SHELL)));

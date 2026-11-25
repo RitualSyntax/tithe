@@ -1,7 +1,7 @@
-/* drop the redaction font file in fonts/ if you want it, falls back otherwise */
+/* title font, same file as forge */
 @font-face {
   font-family: "Redaction 50";
-  src: url("fonts/Redaction50-Regular.woff2") format("woff2");
+  src: url("fonts/redaction50.woff2") format("woff2");
   font-display: swap;
 }
 

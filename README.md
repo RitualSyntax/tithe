@@ -10,9 +10,9 @@ Invoices, expenses and a running tax estimate for self-employed work. It's a PWA
 4. Open the Pages URL in Chrome on your phone, then use the menu → **Add to Home screen**.
 5. Open the app, tap the gear and fill in your details and bank info.
 
-Optional: copy `Redaction50-Regular.woff2` into a `fonts/` folder to get the proper title font. Without it the title falls back to Spectral.
-
 ## Make "Complete & send" actually email the invoice
+
+(The same script also lets Grimoire import recipes from links.)
 
 The app can't send email by itself, so it uses a small Google Apps Script running on your own Gmail. It's free and sends from your address, and sent invoices show up in your Gmail Sent folder.
 
